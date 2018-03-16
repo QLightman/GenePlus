@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>graph</title>
+</head>
+<link href="css/graph/graph.css" rel="stylesheet" type="text/css">
+<link href="css/input.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/myButton.css">
+<link rel="stylesheet" href="css/slider.css">
+<link rel="stylesheet" href="css/jquery-filestyle.min.css">
+<link rel="stylesheet" href="css/chosen.min.css">
+
+
+<script>
+    if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }
+</script>
+<script src="lib/jquery-3.2.1.js"></script>
+<script src="lib/d3.min.js"></script>
+<script src="lib/jquery-filestyle.min.js"></script>
+<script src="lib/chosen.jquery.min.js"></script>
+
+<body>
+    <div id="graph_top_div">
+        <div id="graph_top_left_div">
+            <input id="threshold" class="Input_style" placeholder="threshold:t" />
+        </div>
+        <div id="graph_top_middle_div">
+            <input id="confidence" class="Input_style" placeholder="minimum confidence" />
+        </div>
+        <div id="graph_top_right_div">
+            <button id="graph_close" onclick="close_graph()" type="button" class="myButton">close</button>
+        </div>
+    </div>
+    <div id="graph_bottom_div">
+    </div>
+    <script src="js/graph/draw_graph_bottom_div.js"></script>
+    <script src="js/graph/graph_initial.js"></script>
+
+</body>
+
+</html>
