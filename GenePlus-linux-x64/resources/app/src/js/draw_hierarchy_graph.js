@@ -1,5 +1,5 @@
-function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, group_length_map, k_means_map2) {
-    console.log(arguments);
+function draw_hierarchy_graph(overall_group, sort_groups, element_map, hierarchy_map, k_means_map2) {
+    //  console.log(arguments);
     var i, j,
         graph_r = 0,
         graph_sub_r = 0,
@@ -8,18 +8,22 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
         k_means_sub_node_class = 0,
         k_means_sub_line_class = 0,
         line_color = "steelblue",
+        text_color = "black",
+        node_opacity = 0.2,
+        sub_node_opacity = 0.2,
+        line_opacity = 0.4,
+        text_opacity = 0.5,
+        sub_line_opactiy = 0.2,
         center = new Array(2),
         graph_node = 0,
         graph_line = 0,
         text = 0,
         number_of_floor = 0,
-        start_number = new Array(),
-        start_group_length = new Array(),
-        sub_node = new Array(),
-        sub_line = new Array(),
-        //sub_text = new Array(),
+        start_number = new Array(sort_groups),
         configure_history = new Array(),
-        group_length_history = new Array(),
+        sub_node = new Array(sort_groups),
+        sub_line = new Array(sort_groups),
+        // sub_text = new Array(sort_groups),
         width = $("#right_graph_div").width(),
         height = $("#right_graph_div").height();
     var tooptip = d3.select("body")
@@ -28,8 +32,7 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
         .style("opacity", 0.0);
     graph_r = height / 9;
     graph_sub_r = graph_r / 15 > 1 ? graph_r / 15 : 1;
-    group_length_history[0] = overall_group[0].length;
-    console.log(group_length_history)
+
     configure_history[0] = 0;
     if (number_of_floor <= 1)
         $('#back').prop('disabled', true).css('opacity', 0.5);
@@ -55,10 +58,10 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
     k_means_line.prototype.y1;
     k_means_line.prototype.y2;
 
-    function generate_line_class(class_1, index, length) {
+    function generate_line_class(class_1, index) {
         var line_index = 0;
-        for (i = 0; i < length - 1; i++) {
-            for (var j = i + 1; j < length; j++) {
+        for (i = 0; i < sort_groups - 1; i++) {
+            for (var j = i + 1; j < sort_groups; j++) {
                 class_1[line_index] = new k_means_line();
                 class_1[line_index].source = i;
                 class_1[line_index].target = j;
@@ -97,13 +100,15 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
     }
 
     function k_means_drawing() {
-        console.log(configure_history);
-        console.log(group_length_history);
+        // console.log(configure_history);
+        //var start_point = hierarchy_map.get(number_of_floor + " " + parseInt(chosen_sort));
+        // console.log(overall_group);
+        // console.log(hierarchy_map);
         k_means_line_class = new Array();
         k_means_node_class = new Array();
 
         // if (start_point == undefined) alert("warning");
-        for (var i = 0; i < group_length_history[number_of_floor]; i++) {
+        for (var i = 0; i < sort_groups; i++) {
             k_means_node_class[i] = new k_means_node();
             k_means_node_class[i].id = i;
             k_means_node_class[i].size = overall_group[number_of_floor][i + configure_history[number_of_floor]].length;
@@ -111,55 +116,46 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
         }
 
         generate_node_radius(k_means_node_class, graph_r / 2);
-        generate_line_class(k_means_line_class, 0, group_length_history[number_of_floor]);
+        generate_line_class(k_means_line_class, 0);
 
-        for (var i = 0; i < group_length_history[number_of_floor]; i++) {
-            var tmp1 = hierarchy_map.get(number_of_floor + " " + parseInt(configure_history[number_of_floor] + i));
-            var tmp2 = group_length_map.get(number_of_floor + " " + parseInt(configure_history[number_of_floor] + i));
-            start_number[i] = (tmp1);
-            start_group_length[i] = (tmp2);
+        for (var i = 0; i < sort_groups; i++) {
+            var tmp = number_of_floor + " " + parseInt(configure_history[number_of_floor] + i);
+            start_number[i] = hierarchy_map.get(tmp);
         }
-        console.log(start_number);
-        console.log(start_group_length);
-        console.log(k_means_node_class)
-        console.log(k_means_line_class)
-
+        // console.log(start_number);
         center = [width / 2, height / 2];
         k_means_force_layout(k_means_node_class, k_means_line_class, center, -1);
         setTimeout(generate_sub_graph, 0);
     }
 
     function generate_sub_graph() {
-        k_means_sub_node_class = new Array();
-        k_means_sub_line_class = new Array();
+        k_means_sub_node_class = new Array(sort_groups);
+        k_means_sub_line_class = new Array(sort_groups);
         number_of_floor++;
         if (number_of_floor > 1)
             $('#back').prop('disabled', false).css('opacity', 1);
 
 
-        for (var i = 0; i < group_length_history[number_of_floor - 1]; i++) {
+        for (var i = 0; i < sort_groups; i++) {
             if (start_number[i] == undefined) continue;
-            console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-            k_means_sub_node_class[i] = new Array(start_group_length[i]);
+            k_means_sub_node_class[i] = new Array(sort_groups);
             k_means_sub_line_class[i] = new Array();
-            for (var j = 0; j < start_group_length[i]; j++) {
+            for (var j = 0; j < sort_groups; j++) {
                 k_means_sub_node_class[i][j] = new k_means_node();
                 k_means_sub_node_class[i][j].id = j;
                 k_means_sub_node_class[i][j].size = overall_group[number_of_floor][start_number[i] + j].length;
             }
         }
-        for (var i = 0; i < group_length_history[number_of_floor - 1]; i++) {
+        for (var i = 0; i < sort_groups; i++) {
             if (start_number[i] == undefined) continue;
             generate_node_radius(k_means_sub_node_class[i], 10);
         }
-        for (var i = 0; i < group_length_history[number_of_floor - 1]; i++) {
+        for (var i = 0; i < sort_groups; i++) {
             if (start_number[i] == undefined) continue;
-            generate_line_class(k_means_sub_line_class[i], start_number[i], start_group_length[i]);
+            generate_line_class(k_means_sub_line_class[i], start_number[i]);
         }
-        console.log(k_means_sub_node_class)
-        console.log(k_means_sub_line_class)
 
-        for (var i = 0; i < group_length_history[number_of_floor - 1]; i++) {
+        for (var i = 0; i < sort_groups; i++) {
             if (start_number[i] == undefined) continue;
             center[0] = k_means_node_class[i].x;
             center[1] = k_means_node_class[i].y;
@@ -168,6 +164,8 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
         }
 
     }
+
+
 
     function k_means_force_layout(node_class, line_class, center, flag) {
 
@@ -220,7 +218,7 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
             }
             if (flag < 0) {
                 graph_node = svg.append("g")
-                    .attr("opacity", 0.3)
+                    .attr("opacity", node_opacity)
                     .selectAll("circle")
                     .data(node_class)
                     .enter().append("circle")
@@ -257,7 +255,7 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
                     })
 
                 graph_line = svg.append("g")
-                    .attr("opacity", 0.4)
+                    .attr("opacity", line_opacity)
                     .attr("stroke", line_color)
                     .selectAll("line")
                     .data(line_class)
@@ -301,7 +299,8 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
                 text
                     .transition()
                     .duration(2000)
-                    .attr("opacity", 0.5)
+                    .attr("stroke", text_color)
+                    .attr("opacity", text_opacity)
 
                 graph_line
                     .transition()
@@ -312,7 +311,7 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
 
             } else {
                 sub_node[flag] = svg.append("g")
-                    .attr("opacity", 0.1)
+                    .attr("opacity", sub_node_opacity)
                     .style("fill", function(d) { return "steelblue"; })
                     .selectAll("circle")
                     .data(node_class)
@@ -341,7 +340,7 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
 
 
                 sub_line[flag] = svg.append("g")
-                    .attr("opacity", 0.2)
+                    .attr("opacity", sub_line_opactiy)
                     .attr("stroke", line_color)
                     .selectAll("line")
                     .data(line_class)
@@ -410,6 +409,8 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
 
 
     }
+
+
 
     function dragstarted(d) {
         d3.select(this).raise().classed("active", true);
@@ -498,9 +499,10 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
 
     $("#back").click(function() {
         number_of_floor = number_of_floor - 2;
-        console.log("back " + number_of_floor)
+        // console.log("back " + number_of_floor)
         if (number_of_floor <= 1)
             $('#back').prop('disabled', true).css('opacity', 0.5);
+
         graph_node
             .transition()
             .duration(2000)
@@ -513,7 +515,7 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
             .transition()
             .duration(2000)
             .attr("opacity", 0);
-        for (var i = 0; i < group_length_history[number_of_floor + 1]; i++) {
+        for (var i = 0; i < sort_groups; i++) {
             if (start_number[i] == undefined) continue;
             sub_node[i]
                 .transition()
@@ -526,12 +528,45 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
                 .attr("stroke-width", function(d) {
                     return 0;
                 })
-
+                // sub_text[i]
+                //     .transition()
+                //     .duration(2000)
+                //     .attr("opacity", function(d) {
+                //         return 0;
+                //     })
         }
         k_means_drawing();
     });
 
+    function show_another_graph(d) {
+        function State() {}
+        State.prototype.id = "A";
+        State.prototype.value = 0;
+        var view_port = new Array();
 
+        var another_group = (overall_group[number_of_floor - 1][d.id + configure_history[number_of_floor - 1]]);
+        $("#element_select").empty();
+        $("#element_select").chosen("destroy");
+        $("#element_select").append("<option value='" + (0) + "'>" + "" + "</option>")
+
+        for (var i = 0; i < another_group.length; i++) {
+            var true_name = k_means_map2.get(another_group[i]);
+            view_port[i] = new State();
+            view_port[i].id = true_name;
+            view_port[i].value = another_group[i];
+            $("#element_select").append("<option value='" + (another_group[i]) + "'>" + true_name + "</option>")
+        }
+
+        $('#element_select').chosen({
+            disable_search_threshold: 10,
+            width: "100%"
+        });
+        draw_view_port(view_port, another_group.length);
+        download_data = k_means_map2.get(another_group[0]);
+        for (var i = 1; i < another_group.length; i++) {
+            download_data += '\n' + k_means_map2.get(another_group[i]);
+        }
+    }
 
     function graph_zoom_test(d) {
         var string = number_of_floor - 1 + " " + (d.id + configure_history[number_of_floor - 1]);
@@ -550,7 +585,7 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
             .transition()
             .duration(2000)
             .attr("opacity", 0);
-        for (var i = 0; i < group_length_history[number_of_floor - 1]; i++) {
+        for (var i = 0; i < sort_groups; i++) {
             if (start_number[i] == undefined) continue;
             sub_node[i]
                 .transition()
@@ -611,33 +646,7 @@ function draw_sp_hierarchy_graph(overall_group, element_map, hierarchy_map, grou
         //     })
 
         configure_history[number_of_floor] = start_number[d.id];
-        group_length_history[number_of_floor] = start_group_length[d.id];
         k_means_drawing();
-    }
-
-    function show_another_graph(d) {
-        function State() {}
-        State.prototype.id = "A";
-        State.prototype.value = 0;
-        var view_port = new Array();
-        var another_group = (overall_group[number_of_floor - 1][d.id + configure_history[number_of_floor - 1]]);
-
-        $("#element_select").empty();
-        $("#element_select").chosen("destroy");
-        $("#element_select").append("<option value='" + (0) + "'>" + "" + "</option>")
-
-        for (var i = 0; i < another_group.length; i++) {
-            var true_name = k_means_map2.get(another_group[i]);
-            view_port[i] = new State();
-            view_port[i].id = true_name;
-            view_port[i].value = another_group[i];
-            $("#element_select").append("<option value='" + (another_group[i]) + "'>" + true_name + "</option>")
-        }
-        $('#element_select').chosen({
-            disable_search_threshold: 10,
-            width: "100%"
-        });
-        draw_view_port(view_port, another_group.length);
 
     }
 }

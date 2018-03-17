@@ -2,7 +2,7 @@ const { remote, ipcRenderer } = require('electron');
 // var numeric = require('numeric'),
 var rf = require("fs");
 // _ = require('underscore');
-var svg, graph_svg, tooptip;
+var svg, graph_svg, tooptip, download_data = 0;
 
 $(document).ready(function() {
     $("#sub_right_graph_div").hide();
@@ -12,6 +12,8 @@ $(document).ready(function() {
     $("body").width(wWidth - 30);
     draw_svg();
     draw_sub_right_graph_div();
+    $('#spectrum,#k_means,#graph_return,#back').prop('disabled', true).css('opacity', 0.5);
+
     //draw_left_bottom_div();
 });
 

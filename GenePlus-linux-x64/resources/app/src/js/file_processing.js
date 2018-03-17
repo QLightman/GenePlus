@@ -42,7 +42,7 @@ function file_process() {
                 locate_map.set(data[i][0], i);
             }
         }
-        console.log(element_group);
+        //console.log(element_group);
 
         N = element_group.length;
 
@@ -51,7 +51,7 @@ function file_process() {
             k_means_map2.set(i, element_group[i]);
         }
 
-        console.log(N)
+        // console.log(N)
         M = new Array(N);
         for (i = 0; i < N; i++) {
             M[i] = new Array(N);

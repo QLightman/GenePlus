@@ -9,6 +9,8 @@ var arr = 0,
     file_name = 0,
     file_path = 0;
 $("#input_data").change(function() {
+    $('#spectrum,#k_means').prop('disabled', false).css('opacity', 1);
+
     const input = document.querySelector('input[type="file"]')
     file_path = input.files[0].path;
     file_name = input.files[0].name;
@@ -21,13 +23,14 @@ $("#input_data").change(function() {
 function initial() {
     $("#back").unbind();
     var [o_group, h_map] = generate_hc(arr, _.range(0, N), sort_number, 0);
-    console.log([o_group, h_map]);
+    // console.log([o_group, h_map]);
     $("#SVG").remove();
     draw_svg();
     draw_hierarchy_graph(o_group, sort_number, ele_map, h_map, k_means_map2);
 }
 
 $("#spectrum").click(function() {
+    $("#left_top_sort_div").hide();
     $("#back").unbind();
     $(this).css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, red), color-stop(1, #FF4040))")
         .css("background-color", "red")
@@ -38,13 +41,15 @@ $("#spectrum").click(function() {
 
     // var [arr, N, ele_map] = file_process();
     var [o_group, h_map, gl_map] = generate_hc(arr, _.range(0, N), 20, 1);
-    console.log([o_group, h_map, gl_map]);
+    //  console.log([o_group, h_map, gl_map]);
     $("#SVG").remove();
     draw_svg();
     draw_sp_hierarchy_graph(o_group, ele_map, h_map, gl_map, k_means_map2);
 })
 
 $("#k_means").click(function() {
+    $("#left_top_sort_div").show();
+
     $(this).css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, red), color-stop(1, #FF4040))")
         .css("background-color", "red")
         .prop('disabled', true);
@@ -55,7 +60,7 @@ $("#k_means").click(function() {
 })
 
 $("#range_slider").change(function() {
-    console.log($(this).val());
+    // console.log($(this).val());
     sort_number = $(this).val();
     initial();
     $("#sort_group").val(sort_number);
@@ -142,9 +147,9 @@ function sp_generate_hc(arr, group, min_group) {
 
 $("#element_select").chosen().change(function() {
     $('#graph_return').prop('disabled', false).css('opacity', 1);
-    $('#demo1,#spectrum,#k_means').prop('disabled', true).css('opacity', 0.5);
+    $('#spectrum,#k_means').prop('disabled', true).css('opacity', 0.5);
 
-    console.log($(this).val());
+    // console.log($(this).val());
     $("#right_graph_div").hide();
     $("#sub_right_graph_div").show();
     draw_sub_graph(data, $(this).val(), locate_map, k_means_map, k_means_map2, $("#number").val(), $("#confidence").val());
@@ -152,8 +157,8 @@ $("#element_select").chosen().change(function() {
 });
 
 $("#confidence, #number").change(function() {
-    console.log($("#number").val());
-    console.log($("#confidence").val());
+    // console.log($("#number").val());
+    // console.log($("#confidence").val());
     draw_sub_graph(data, $("#element_select").val(), locate_map, k_means_map, k_means_map2, $("#number").val(), $("#confidence").val());
 });
 // $("#demo1").click(function() {
@@ -162,6 +167,14 @@ $("#confidence, #number").change(function() {
 // $("#demo2").click(function() {
 //     demo_click("src/data/demo2.txt", "demo2.txt");
 // });
+$("#download").click(function() {
+    rf.writeFile(file_path + ".txt", download_data, function(err) {
+        if (err) {
+            return console.log(err);
+        }
+        alert("File was saved as " + file_path + ".txt");
+    });
+})
 
 function demo_click(path, name) {
     file_name = name;

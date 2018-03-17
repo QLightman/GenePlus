@@ -9,14 +9,20 @@
 
 <body marginheight="0">
     <div id="help_top_div">
-        <h1>instruction</h1>
-        <h2>ppi_network</h2>
-        <p>rump offered no specific timeline during his four-minute speech. The Space Policy Directive 1, as it's called, was based on recommendations of the National Space Council, which Trump directed to reestablish in June to advise and help implement3
-            his space policy with exploration as a national priority. The council was first created in 1989 during the administration of President George H.W. Bush but later disbanded in 1993 under President Bill Clinton.
+        <h1>Instruction</h1>
+        <h2>Input file format</h2>
+        <p>
+            The file which contain the data should obey the following format,
+            <pre code>
+            <br> element1 element2 value <br> element1 element3 value <br> element2 element1 value <br> element3 element1 value <br> ...
+            </pre> You can consult <b>demo1.txt</b> as a example.
         </p>
-        <h2>causal_plot</h2>
-        <p>rump offered no specific timeline during his four-minute speech. The Space Policy Directive 1, as it's called, was based on recommendations of the National Space Council, which Trump directed to reestablish in June to advise and help implement3
-            his space policy with exploration as a national priority. The c
+        <h2>Usage</h2>
+        <p>
+            1.Load file via <b>choose input file</b>. The default cluster algorithm is k-means, you can adjust to spectrual cluster via <b>spectrum</b>. <br> 2.When mouse hover one of the cluster, it will display the elements inside the cluster in the
+            left viewport, by choosing one of the element, it will display its most related elements and interactions, you can adjust the nodes number and minimum interaction value via the top-left input window, you can always return to the main view
+            by clicking <b>return</b>. <br> 3. By double click one the cluster(zoom-in), it will reveal the hierarchy structure of this cluster, by click <b>back</b>(zoom-out) will return to the previous hierarchy. Together, it will help you navigate
+            through different graph hierarchies. 4. By clicking <b>download</b> you can get a file with all the elements listed in your chosen cluster. So you can do further analysis such as gene ontology analysis.
         </p>
     </div>
     <div id="help_bottom_div">
@@ -25,6 +31,14 @@
         </center>
     </div>
 </body>
-<script src="js/main/initial.js"></script>
+<script>
+    const {
+        ipcRenderer
+    } = require('electron');
+
+    function close_help() {
+        ipcRenderer.send('hide-help');
+    }
+</script>
 
 </html>
