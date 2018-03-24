@@ -12,8 +12,7 @@ const createWindow = () => {
             nodeIntegrationInWorker: true
         },
         width: 1200,
-        height: 800,
-        icon: path.join(__dirname, 'src/icons/png/64x64.png')
+        height: 800
     });
 
     // and load the index.html of the app.
@@ -36,9 +35,7 @@ const createWindow = () => {
         width: 500,
         height: 700,
         frame: false,
-        show: false,
-        icon: path.join(__dirname, 'src/icons/png/64x64.png')
-
+        show: false
     });
 
     // and load the index.html of the app.
