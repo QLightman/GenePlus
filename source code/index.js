@@ -13,7 +13,7 @@ const createWindow = () => {
         },
         width: 1200,
         height: 800,
-        icon: path.join(__dirname, 'icons/png/64x64.png')
+        icon: path.join(__dirname, 'src/icons/png/64x64.png')
     });
 
     // and load the index.html of the app.
@@ -37,7 +37,7 @@ const createWindow = () => {
         height: 700,
         frame: false,
         show: false,
-        icon: path.join(__dirname, '/icons/png/64x64.png')
+        icon: path.join(__dirname, 'src/icons/png/64x64.png')
 
     });
 

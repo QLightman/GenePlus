@@ -1,7 +1,6 @@
 const { remote, ipcRenderer } = require('electron');
 // var numeric = require('numeric'),
 var rf = require("fs");
-// _ = require('underscore');
 var svg, graph_svg, tooptip, download_data = 0;
 
 $(document).ready(function() {
