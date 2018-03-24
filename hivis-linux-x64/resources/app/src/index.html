@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HiVis</title>
+</head>
+<link href="css/main.css" rel="stylesheet" type="text/css">
+<link href="css/input.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/myButton.css">
+<link rel="stylesheet" href="css/slider.css">
+<link rel="stylesheet" href="css/jquery-filestyle.min.css">
+<link rel="stylesheet" href="css/chosen.min.css">
+
+
+<script>
+    if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }
+</script>
+<script src="lib/jquery-3.2.1.js"></script>
+<script src="lib/d3.min.js"></script>
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/numeric-1.2.6.min.js"></script>
+<script src="lib/underscore-min.js"></script>
+<script src="lib/jquery-filestyle.min.js"></script>
+<script src="lib/chosen.jquery.min.js"></script>
+<!-- <script src="lib/require.js"></script> -->
+<script src="lib/virtualscroller.js"></script>
+
+<body oncopy="return false" oncut="return false" onpaste="return false">
+    <div id="left_div">
+        <div id="left_top_div">
+            <div id="left_top_file_div">
+                <center>
+                    <input id="input_data" type="file" class="jfilestyle" data-input="false" data-text="Choose input file">
+                </center>
+                <input id="file_name" class="Input_style" placeholder="file name" />
+                <br><br>
+            </div>
+            <div id="left_top_sort_div">
+                <input id="range_slider" class="rangeslider" type="range" min="3" max="50" step="1">&nbsp Group Number:
+                <input id="sort_group" class="Input_style" placeholder="6" />
+            </div>
+            <div id="left_top_select_div">
+                <br>
+                <select id="element_select" data-placeholder="Choose a element...">
+                    <option value="0"></option>
+                </select>
+            </div>
+        </div>
+        <div id="left_bottom_div" class="viewport">
+        </div>
+        <div id="left_bottom_download_div">
+            <br>
+            <center>
+                <button id="download" type="button" class="myButton">Download</button>
+            </center>
+
+        </div>
+    </div>
+    <div id="right_div">
+        <div id="right_top_div">
+            <div id="right_top_left_div">
+                <button id="reload" type="button" class="myButton">reload</button>
+                <button id="spectrum" type="button" class="myButton">spectrum</button>
+                <button id="k_means" type="button" class="myButton">k_means</button>
+                <button id="help" onclick="show_help()" type="button" class="myButton">Help</button>
+                <button id="back" type="button" class="myButton">Back</button>
+            </div>
+            <div id=right_top_right_div>
+                <!-- <button id="threshold" type="button" class="myButton">threshold</button> -->
+                nodes number:
+                <input id="number" class="Input_style" placeholder="sp:number(10)" value=10 />
+                <!-- <button id="minimum" type="button" class="myButton">minimum </button> -->
+                &nbsp &nbsp minimum value:
+                <input id="confidence" class="Input_style" placeholder="sp:minimum(0.5)" value=0.5 />
+
+                <button id="graph_return" type="button" class="myButton">return</button>
+            </div>
+        </div>
+        <div id="right_graph_div">
+
+        </div>
+        <div id="sub_right_graph_div">
+        </div>
+    </div>
+    <script src="js/initial.js"></script>
+    <script src="js/draw_sub_graph.js"></script>
+    <script src="js/new_k_means_cluster.js"></script>
+    <script src="js/spectral_cluster.js"></script>
+    <script src="js/file_processing.js"></script>
+    <script src="js/draw_hierarchy_graph.js"></script>
+    <script src="js/draw_sp_hierarchy_graph.js"></script>
+    <script src="js/draw_view_port.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
