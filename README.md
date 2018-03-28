@@ -37,7 +37,7 @@ element1 element3 value
 element2 element1 value 
 element3 element1 value ...
 ```
-You can consult **demo1.txt** as a example.
+You can consult **demo1.txt** as an example.
 
 ## License
 ![MIT](https://github.com/QLightman/HiVis/blob/master/LICENSE)
