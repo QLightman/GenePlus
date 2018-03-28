@@ -14,7 +14,13 @@ $("#input_data").change(function() {
     const input = document.querySelector('input[type="file"]')
     file_path = input.files[0].path;
     file_name = input.files[0].name;
-    [data, arr, N, ele_map, locate_map, k_means_map, k_means_map2] = file_process(file_path);
+    try {
+        [data, arr, N, ele_map, locate_map, k_means_map, k_means_map2] = file_process(file_path);
+    } catch (ex) {
+        console.log(ex)
+        console.log(ex.message); //t is not defined 
+        console.log(ex.name); //ReferenceError
+    }
     initial();
     $("#file_name").val(file_name);
 });
@@ -26,7 +32,11 @@ function initial() {
     // console.log([o_group, h_map]);
     $("#SVG").remove();
     draw_svg();
-    draw_hierarchy_graph(o_group, sort_number, ele_map, h_map, k_means_map2);
+    try {
+        draw_hierarchy_graph(o_group, sort_number, ele_map, h_map, k_means_map2);
+    } catch (ex) {
+        error_handler();
+    }
 }
 
 $("#spectrum").click(function() {
@@ -39,12 +49,14 @@ $("#spectrum").click(function() {
         .css("background-color", "#0061a7")
         .prop('disabled', false);
 
-    // var [arr, N, ele_map] = file_process();
     var [o_group, h_map, gl_map] = generate_hc(arr, _.range(0, N), 20, 1);
-    //  console.log([o_group, h_map, gl_map]);
     $("#SVG").remove();
     draw_svg();
-    draw_sp_hierarchy_graph(o_group, ele_map, h_map, gl_map, k_means_map2);
+    try {
+        draw_sp_hierarchy_graph(o_group, ele_map, h_map, gl_map, k_means_map2);
+    } catch (ex) {
+        error_handler();
+    }
 })
 
 $("#k_means").click(function() {
@@ -176,18 +188,18 @@ $("#download").click(function() {
     });
 })
 
-function demo_click(path, name) {
-    file_name = name;
-    file_path = path;
-    $("#spectrum").css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0061a7), color-stop(1, #007dc1))")
-        .css("background-color", "#0061a7")
-        .prop('disabled', false);
+// function demo_click(path, name) {
+//     file_name = name;
+//     file_path = path;
+//     $("#spectrum").css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0061a7), color-stop(1, #007dc1))")
+//         .css("background-color", "#0061a7")
+//         .prop('disabled', false);
 
-    $("#k_means").css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, red), color-stop(1, #FF4040))")
-        .css("background-color", "red")
-        .prop('disabled', true);
+//     $("#k_means").css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, red), color-stop(1, #FF4040))")
+//         .css("background-color", "red")
+//         .prop('disabled', true);
 
-    [data, arr, N, ele_map, locate_map, k_means_map, k_means_map2] = file_process(file_path);
-    initial();
-    $("#file_name").val(file_name);
-}
+//     [data, arr, N, ele_map, locate_map, k_means_map, k_means_map2] = file_process(file_path);
+//     initial();
+//     $("#file_name").val(file_name);
+// }

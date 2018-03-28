@@ -1,5 +1,4 @@
 const { remote, ipcRenderer } = require('electron');
-// var numeric = require('numeric'),
 var rf = require("fs");
 var svg, graph_svg, tooptip, download_data = 0;
 
@@ -12,11 +11,7 @@ $(document).ready(function() {
     draw_svg();
     draw_sub_right_graph_div();
     $('#spectrum,#k_means,#graph_return,#back').prop('disabled', true).css('opacity', 0.5);
-
-    //draw_left_bottom_div();
 });
-
-
 
 function show_help() {
     ipcRenderer.send('show-help');
@@ -108,18 +103,8 @@ function draw_sub_right_graph_div() {
         .attr("height", height);
 }
 
-// function draw_left_bottom_div() {
-//     var width = $("#left_bottom_div").width();
-//     var height = $("#left_bottom_div").height();
-//     scrollSVG = d3.select("#left_bottom_div").append("svg")
-//         .attr("id", "view_port")
-//         .attr("width", width)
-//         .attr("height", height);
-// }
-
-
 function error_handler() {
-    alert("Sorry, wrong input!!!");
+    alert("Sorry, wrong input, please consult the file format instruction and try again!");
 }
 
 function zooming(svg, g) {

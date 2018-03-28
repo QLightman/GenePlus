@@ -18,12 +18,12 @@ then install [electron-forge](https://github.com/electron-userland/electron-forg
 ```
 npm install -g electron-forge
 electron-forge init HiVis
+cd HiVis
 ```
 then replace the **src** folder with ![source code](https://github.com/QLightman/HiVis/tree/master/source%20code)
 
 then
 ```
-cd HiVis
 electron-forge start
 ```
 
