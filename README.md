@@ -6,6 +6,8 @@ Currently, we offer installation packages for linux, windows and mac operating s
 For linux user, download the ![hivis-linux-x64](https://github.com/QLightman/HiVis/tree/master/installation%20packages/hivis-linux-x64), execute the ![hivis](https://github.com/QLightman/HiVis/blob/master/installation%20packages/hivis-linux-x64/hivis). For win32 user, download the ![hivis-win32-x64](https://github.com/QLightman/HiVis/tree/master/installation%20packages/hivis-win32-x64), execute the ![hivis.exe](https://github.com/QLightman/HiVis/blob/master/installation%20packages/hivis-win32-x64/hivis.exe). For mas user, download the ![hivis-mas-x64](https://github.com/QLightman/HiVis/tree/master/installation%20packages/hivis-mas-x64), execute the ![hivis](https://github.com/QLightman/HiVis/blob/master/installation%20packages/hivis-mas-x64/hivis.app/Contents/MacOS/hivis).
  You can load the **demo1.txt** file into HiVis to see how it works. 
 
+Since there are numerous operating systems exist and each system has many versions, so if we don't provide a installation package for your operating system or you encounter some errors when using the mas, win32 or linux installation package, you can still build **HiVis** yourself by following ![Installation](https://github.com/QLightman/HiVis#installation).
+
 ## Installation
 First you have to install [electron](https://electronjs.org/), you can choose to install it as a development dependency in your app:
 ```
