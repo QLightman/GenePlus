@@ -4,10 +4,7 @@ A software built on [electron](https://electronjs.org/) for hierarchical visuali
 ## Usage
 Currently, we offer installation packages for linux, windows and mac operating systems.
 For linux user, download the ![hivis-linux-x64](https://github.com/QLightman/HiVis/tree/master/installation%20packages/hivis-linux-x64), execute the ![hivis](https://github.com/QLightman/HiVis/blob/master/installation%20packages/hivis-linux-x64/hivis). For win32 user, download the ![hivis-win32-x64](https://github.com/QLightman/HiVis/tree/master/installation%20packages/hivis-win32-x64), execute the ![hivis.exe](https://github.com/QLightman/HiVis/blob/master/installation%20packages/hivis-win32-x64/hivis.exe). For mas user, download the ![hivis-mas-x64](https://github.com/QLightman/HiVis/tree/master/installation%20packages/hivis-mas-x64), execute the ![hivis](https://github.com/QLightman/HiVis/blob/master/installation%20packages/hivis-mas-x64/hivis.app/Contents/MacOS/hivis).
-
-
-There is not installation required. 
-Just download the hiVis-linux-x64 package, start the software by clicking *HiVis* file. You can load the *demo1.txt* file into HiVis to see how it works. 
+ You can load the **demo1.txt** file into HiVis to see how it works. 
 
 ## Installation
 First you have to install [electron](https://electronjs.org/), you can choose to install it as a development dependency in your app:
@@ -30,6 +27,8 @@ then
 ```
 electron-forge start
 ```
+You can load the **demo1.txt** file into HiVis to see how it works. 
+
 ## Input file format
 The input file should obey the following format:
 ```
