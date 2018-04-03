@@ -97,9 +97,13 @@
 }
 
 #file_name,
-#range_slider,
-#download {
+#range_slider {
     width: 95%;
+}
+
+#download,
+#download_svg {
+    width: 48%;
 }
 
 #sort_group {

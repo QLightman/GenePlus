@@ -91,7 +91,6 @@ function draw_svg() {
         .attr("id", "SVG")
         .attr("width", width)
         .attr("height", height);
-
 }
 
 function draw_sub_right_graph_div() {
@@ -101,6 +100,8 @@ function draw_sub_right_graph_div() {
         .attr("id", "graph_svg")
         .attr("width", width)
         .attr("height", height);
+
+
 }
 
 function error_handler() {

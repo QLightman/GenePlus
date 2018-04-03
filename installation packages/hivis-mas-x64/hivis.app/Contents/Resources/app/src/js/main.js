@@ -37,6 +37,7 @@ function initial() {
     } catch (ex) {
         error_handler();
     }
+
 }
 
 $("#spectrum").click(function() {
@@ -187,13 +188,29 @@ $("#download").click(function() {
         alert("File was saved as " + file_path + ".txt");
     });
 })
+$("#download_svg").click(function() {
+        var svgData;
+        if ($("#sub_right_graph_div").is(":hidden"))
+            svgData = $("#SVG")[0].outerHTML;
+        else svgData = $("#graph_svg")[0].outerHTML;
 
-// function demo_click(path, name) {
-//     file_name = name;
-//     file_path = path;
-//     $("#spectrum").css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0061a7), color-stop(1, #007dc1))")
-//         .css("background-color", "#0061a7")
-//         .prop('disabled', false);
+        var svgBlob = new Blob([svgData], {
+            type: "image/svg+xml;charset=utf-8"
+        });
+        var svgUrl = URL.createObjectURL(svgBlob);
+        var downloadLink = document.createElement("a");
+        downloadLink.href = svgUrl;
+        downloadLink.download = "graph.svg";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    })
+    // function demo_click(path, name) {
+    //     file_name = name;
+    //     file_path = path;
+    //     $("#spectrum").css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0061a7), color-stop(1, #007dc1))")
+    //         .css("background-color", "#0061a7")
+    //         .prop('disabled', false);
 
 //     $("#k_means").css("background", "-webkit-gradient(linear, left top, left bottom, color-stop(0.05, red), color-stop(1, #FF4040))")
 //         .css("background-color", "red")

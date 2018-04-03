@@ -41,5 +41,9 @@ element3 element1 value ...
 ```
 You can consult **demo1.txt** as an example.
 
+## Download features
+By clicking **save.file**, you can get can get a file with all the elements listed in your chosen cluster. So you can do further analysis such as gene ontology analysis. Also, by clicking **save.svg** you
+            can get a svg file of your current view.
+
 ## License
 ![MIT](https://github.com/QLightman/HiVis/blob/master/LICENSE)
